@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title class="items-center">
+        <q-toolbar-title class="items-center" @click="$router.push('/')" style="cursor: pointer">
           <q-avatar>
             <img src="~assets\logo-title.png">
           </q-avatar>
@@ -40,12 +40,15 @@
           Menu
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+        <q-item clickable v-for="link in menu" :key="link.title" :to="link.to">
+            <q-item-section avatar>
+              <q-icon :name="link.icon" />
+            </q-item-section>
+            <q-item-section>
+              {{ link.title }}
+            </q-item-section>
+          </q-item>
+        </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -56,46 +59,51 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import type { opcionesMenuPrincipal } from 'src/components/models';
 
-const linksList: EssentialLinkProps[] = [
+const menu = ref<opcionesMenuPrincipal[]>([
   {
     title: 'Alumnos',
     /* caption: 'quasar.dev', */
     icon: 'fa-solid fa-users',
-    link: 'https://quasar.dev'
+    to: '/alumnos' // Assuming this is a route
   },
   {
     title: 'Profesores',
     /* caption: 'quasar.dev', */
-    icon: 'fa-solid fa-person-chalkboard', // <i class="fa-solid fa-person-chalkboard
-    link: 'https://quasar.dev'
+    icon: 'fa-solid fa-person-chalkboard',
+    to: 'https://quasar.dev'
   },
   {
     title: 'Reportes',
     /* caption: 'quasar.dev', */
-    icon: 'fa-solid fa-file', // <i class="fa-solid fa-person-chalkboard
-    link: 'https://quasar.dev'
+    icon: 'fa-solid fa-file',
+    to: 'https://quasar.dev'
   },
   {
     title: 'Configuracion',
     /* caption: 'quasar.dev', */
     icon: 'fa-solid fa-solid fa-screwdriver-wrench', // <i class="fa-solid fa-screwdriver-wrench
-    link: 'https://quasar.dev'
+    to: 'https://quasar.dev'
   },
   {
     title: 'Docs',
     /* caption: 'quasar.dev', */
     icon: 'fa-solid fa-school',
-    link: 'https://quasar.dev'
+    to: 'https://quasar.dev'
   },
   {
     title: 'Github',
     /* caption: 'github.com/Felipe-258', */
     icon: 'fa-brands fa-github',
-    link: 'https://github.com/Felipe-258'
+    to: 'https://github.com/Felipe-258'
+  },  
+  {
+    title: 'Salir',
+    icon: 'fa-solid fa-right-from-bracket',
+    to: '/login'
   }
-];
+])
 
 const leftDrawerOpen = ref(false);
 
@@ -105,10 +113,13 @@ function toggleLeftDrawer () {
 </script>
 <style>
 .drawer {
-  background: #121a21 !important;
+  background: var(--q-primary) !important;
   color: wheat;
 }
 .q-layout__shadow::after {
   box-shadow: none;
+}
+.q-item.q-router-link--active, .q-item--active {
+  color: var(--q-secondary);
 }
 </style>

@@ -6,3 +6,8 @@ export interface Todo {
 export interface Meta {
   totalCount: number;
 }
+export interface opcionesMenuPrincipal {
+  title: string;
+  icon: string;
+  to: string;
+}
