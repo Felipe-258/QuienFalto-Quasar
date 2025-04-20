@@ -1,21 +1,29 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
           dense
           round
-          icon="menu"
+          icon="fa-solid fa-bars"
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="items-center">
+          <q-avatar>
+            <img src="~assets\logo-title.png">
+          </q-avatar>
+          Quién Falto
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
+        <q-btn
+          flat
+          rounded
+          icon-right="fa-solid fa-user" 
+          label="Felipe" />
       </q-toolbar>
     </q-header>
 
@@ -23,12 +31,13 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      class="drawer"
     >
       <q-list>
         <q-item-label
           header
         >
-          Essential Links
+          Menu
         </q-item-label>
 
         <EssentialLink
@@ -51,46 +60,40 @@ import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink
 
 const linksList: EssentialLinkProps[] = [
   {
+    title: 'Alumnos',
+    /* caption: 'quasar.dev', */
+    icon: 'fa-solid fa-users',
+    link: 'https://quasar.dev'
+  },
+  {
+    title: 'Profesores',
+    /* caption: 'quasar.dev', */
+    icon: 'fa-solid fa-person-chalkboard', // <i class="fa-solid fa-person-chalkboard
+    link: 'https://quasar.dev'
+  },
+  {
+    title: 'Reportes',
+    /* caption: 'quasar.dev', */
+    icon: 'fa-solid fa-file', // <i class="fa-solid fa-person-chalkboard
+    link: 'https://quasar.dev'
+  },
+  {
+    title: 'Configuracion',
+    /* caption: 'quasar.dev', */
+    icon: 'fa-solid fa-solid fa-screwdriver-wrench', // <i class="fa-solid fa-screwdriver-wrench
+    link: 'https://quasar.dev'
+  },
+  {
     title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
+    /* caption: 'quasar.dev', */
+    icon: 'fa-solid fa-school',
     link: 'https://quasar.dev'
   },
   {
     title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    /* caption: 'github.com/Felipe-258', */
+    icon: 'fa-brands fa-github',
+    link: 'https://github.com/Felipe-258'
   }
 ];
 
@@ -100,3 +103,12 @@ function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+<style>
+.drawer {
+  background: #121a21 !important;
+  color: wheat;
+}
+.q-layout__shadow::after {
+  box-shadow: none;
+}
+</style>
