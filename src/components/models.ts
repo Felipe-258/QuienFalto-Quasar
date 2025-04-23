@@ -8,6 +8,24 @@ export interface Meta {
 }
 export interface opcionesMenuPrincipal {
   title: string;
+  caption?: string;
   icon: string;
-  to: string;
+  to?: string;
+  href?: string;
+}
+
+export interface Profesor {
+  check: boolean;
+  id: number;
+  nombre: string;
+  apellido: string;
+  grado: string;
+}
+
+export interface Alumno {
+  check: boolean;
+  id: number;
+  nombre: string;
+  apellido: string;
+  grado: string;
 }

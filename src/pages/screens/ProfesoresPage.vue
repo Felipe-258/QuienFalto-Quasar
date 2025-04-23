@@ -2,7 +2,7 @@
   <q-page padding>
     <q-table
       :columns="columns"
-      :rows="alumnos"
+      :rows="profesores"
       row-key="id"
       flat
       bordered
@@ -15,13 +15,13 @@
       <template v-slot:top>
         <div class="row items-center full-width q-gutter-sm">
           <!-- Título a la izquierda -->
-          <div class="col-auto text-h6">Alumnos</div>
+          <div class="col-auto text-h6">Profesores</div>
 
           <!-- Barra de búsqueda centrada -->
           <div class="col">
             <q-input
               v-model="filter"
-              placeholder="Buscar Alumno"
+              placeholder="Buscar Profesor"
               dense
               outlined
               class="q-mx-auto"
@@ -34,7 +34,7 @@
             <q-btn
               icon-right="fa-solid fa-plus"
               color="primary"
-              label="Agregar Alumno"
+              label="Agregar Profesor"
               @click="dialog = true"
             />
           </div>
@@ -42,46 +42,46 @@
       </template>
 
       <!-- Resto de tu template... -->
-      <template v-slot:body="alumnos">
-        <q-tr :alumnos="alumnos">
-          <q-td key="seleccionar" :alumnos="alumnos">
-            <q-checkbox v-model="alumnos.row.check"/>
+      <template v-slot:body="profesores">
+        <q-tr :profesores="profesores">
+          <q-td key="seleccionar" :profesores="profesores">
+            <q-checkbox v-model="profesores.row.check"/>
           </q-td>
-          <q-td style="text-align: right;">{{ alumnos.row.id }}</q-td>
-          <q-td style="text-align: right;">{{ alumnos.row.nombre }}</q-td>
-          <q-td style="text-align: right;">{{ alumnos.row.apellido }}</q-td>
-          <q-td style="text-align: right;">{{ alumnos.row.grado }}</q-td>
+          <q-td style="text-align: right;">{{ profesores.row.id }}</q-td>
+          <q-td style="text-align: right;">{{ profesores.row.nombre }}</q-td>
+          <q-td style="text-align: right;">{{ profesores.row.apellido }}</q-td>
+          <q-td style="text-align: right;">{{ profesores.row.grado }}</q-td>
         </q-tr>
       </template>
     </q-table>
   </q-page>
   <div v-if="dialog">
-    <AlumnosDialog
+    <ProfesoresDialog
     @save="save()"
     @cancel="cancel()"
-    ></AlumnosDialog>
+    ></ProfesoresDialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import AlumnosDialog from '../dialog/AlumnosDialog.vue';
-import type { Alumno } from 'src/components/models';
+import ProfesoresDialog from '../dialog/ProfesoresDialog.vue';
+import type { Profesor } from 'src/components/models';
 const dialog = ref<boolean>(false)
 const filter = ref<string>('')
 
 const columns = [
-  { name: '', label: '', field: 'check', sortable: false, style: 'max-width: 10px !important; min-width: 10px !important;'},
+  { name: 'seleccionar', label: '', field: 'check', sortable: false, style: 'max-width: 10px !important; min-width: 10px !important;'},
   { name: 'id', label: 'ID', field: 'id', sortable: true },
   { name: 'nombre', label: 'Nombre', field: 'nombre', sortable: true },
   { name: 'apellido', label: 'Apellido', field: 'apellido', sortable: true },
   { name: 'grado', label: 'Grado', field: 'grado', sortable: true },
 ];
 
-const alumnos = ref<Alumno[]>([
-  { check: false, id: 1, nombre: 'Juan', apellido: 'Pérez', grado: '5to' },
-  { check: false, id: 2, nombre: 'María', apellido: 'Gómez', grado: '6to' },
-  { check: false, id: 3, nombre: 'Carlos', apellido: 'López', grado: '5to' },
+const profesores = ref<Profesor[]>([
+  { check: false, id: 1, nombre: 'Pedro', apellido: 'Pérez', grado: '2do' },
+  { check: false, id: 2, nombre: 'Ramon', apellido: 'Fernandez', grado: '6to' },
+  { check: false, id: 3, nombre: 'Carlos', apellido: 'Gonzales', grado: '5to' },
 ]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

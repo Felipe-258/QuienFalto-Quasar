@@ -22,7 +22,7 @@
         <q-btn
           flat
           rounded
-          icon-right="fa-solid fa-user" 
+          icon-right="fa-solid fa-user"
           label="Felipe" />
       </q-toolbar>
     </q-header>
@@ -40,15 +40,34 @@
           Menu
         </q-item-label>
 
-        <q-item clickable v-for="link in menu" :key="link.title" :to="link.to">
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              {{ link.title }}
-            </q-item-section>
-          </q-item>
-        </q-list>
+        <q-item
+          v-for="link in menu"
+          :key="link.title"
+          :tag="link.href ? 'a' : 'router-link'"
+          :href="link.href"
+          :to="link.to"
+          clickable
+          dense
+          rel="noopener"
+        >
+          <q-item-section avatar>
+            <q-icon :name="link.icon" />
+          </q-item-section>
+
+          <!-- Modifica la sección del título y caption dentro del q-item -->
+          <q-item-section>
+            <div class="title-container">
+              <div  :class="link.caption !== undefined ? 'menu-title' : 'no-cap' ">{{ link.title }}</div>
+              <div
+                v-if="link.caption"
+                :class="link.caption !== null ? 'menu-caption' : '' "
+              >
+                {{ link.caption }}
+              </div>
+            </div>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -64,40 +83,40 @@ import type { opcionesMenuPrincipal } from 'src/components/models';
 const menu = ref<opcionesMenuPrincipal[]>([
   {
     title: 'Alumnos',
-    /* caption: 'quasar.dev', */
+    caption: 'Registra Asistencia y Agrega Alumnos',
     icon: 'fa-solid fa-users',
     to: '/alumnos' // Assuming this is a route
   },
   {
     title: 'Profesores',
-    /* caption: 'quasar.dev', */
+    caption: 'Ver y Agregar Profesores',
     icon: 'fa-solid fa-person-chalkboard',
-    to: 'https://quasar.dev'
+    to: '/profesores'
   },
   {
     title: 'Reportes',
-    /* caption: 'quasar.dev', */
+    caption: 'Crear Informes especificos',
     icon: 'fa-solid fa-file',
     to: 'https://quasar.dev'
   },
   {
     title: 'Configuracion',
-    /* caption: 'quasar.dev', */
-    icon: 'fa-solid fa-solid fa-screwdriver-wrench', // <i class="fa-solid fa-screwdriver-wrench
+    caption: 'Cambie clases totales, Notas de promocion, entre otros',
+    icon: 'fa-solid fa-solid fa-screwdriver-wrench',
     to: 'https://quasar.dev'
   },
   {
     title: 'Docs',
-    /* caption: 'quasar.dev', */
+    caption: 'Documentacion',
     icon: 'fa-solid fa-school',
-    to: 'https://quasar.dev'
+    href: 'https://quasar.dev'
   },
   {
     title: 'Github',
-    /* caption: 'github.com/Felipe-258', */
+    caption: 'github.com/Felipe-258',
     icon: 'fa-brands fa-github',
-    to: 'https://github.com/Felipe-258'
-  },  
+    href: 'https://github.com/Felipe-258'
+  },
   {
     title: 'Salir',
     icon: 'fa-solid fa-right-from-bracket',
@@ -121,5 +140,62 @@ function toggleLeftDrawer () {
 }
 .q-item.q-router-link--active, .q-item--active {
   color: var(--q-secondary);
+}
+/* Añade estos estilos */
+.title-container {
+  position: relative;
+  height: 40px; /* Altura fija para contener ambos elementos */
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-title {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-caption {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.75em;
+  position: absolute;
+  width: 100%;
+  top: calc(100% - 17px); /* Posición inicial debajo del título */
+}
+
+.q-item:hover .menu-title {
+  transform: translateY(-85%);
+}
+
+.q-item:hover .menu-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title-container {
+  overflow: hidden;
+}
+
+.menu-caption {
+  color: rgba(255, 255, 255, 0.7); /* Color sutil para el caption */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Mejor legibilidad */
+}
+
+.q-item {
+  transition: background 0.3s;
+}
+
+.q-item:hover {
+  background: linear-gradient(90deg, transparent 90%, rgba(255,255,255,0.05)); /* Efecto de resaltado sutil */
+}
+
+.no-cap {
+  padding: 9px 0px;
+  transform: none !important;
+  position: static;
 }
 </style>

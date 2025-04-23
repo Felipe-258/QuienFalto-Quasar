@@ -64,7 +64,7 @@ export default defineConfig((/* ctx */) => {
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
-      
+
       vitePlugins: [
         ['vite-plugin-checker', {
           vueTsc: true,
@@ -72,14 +72,14 @@ export default defineConfig((/* ctx */) => {
             lintCommand: 'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
             useFlatConfig: true
           }
-        }, { server: false }]
+        }, { server: true }]
       ]
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
-      // https: true,
-      open: true // opens browser window automatically
+      open: true, // Abre el navegador automáticamente
+      allowedHosts: true
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework

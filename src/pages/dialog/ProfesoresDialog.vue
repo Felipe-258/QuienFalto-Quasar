@@ -2,26 +2,26 @@
   <q-dialog v-model="model" persistent>
     <q-card style="min-width: 400px;">
       <q-card-section>
-        <div class="text-h6">{{ isEdit ? 'Editar Alumno' : 'Agregar Alumno' }}</div>
+        <div class="text-h6">{{ isEdit ? 'Editar Profesor' : 'Agregar Profesor' }}</div>
       </q-card-section>
 
       <q-card-section>
         <q-form @submit.prevent="onSave" ref="formRef">
           <q-input
-            v-model="localAlumno.nombre"
+            v-model="localProfesor.nombre"
             label="Nombre"
             :rules="[val => !!val || 'Nombre es requerido']"
             autofocus
             clearable
           />
           <q-input
-            v-model="localAlumno.apellido"
+            v-model="localProfesor.apellido"
             label="Apellido"
             :rules="[val => !!val || 'Apellido es requerido']"
             clearable
           />
           <q-input
-            v-model="localAlumno.grado"
+            v-model="localProfesor.grado"
             label="Grado"
             :rules="[val => !!val || 'Grado es requerido']"
             clearable
@@ -39,20 +39,21 @@
 
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, onMounted } from 'vue';
-import type { Alumno } from 'src/components/models';
+import type { Profesor } from 'src/components/models';
+
 const model = ref<boolean>(true)
 
 const props = defineProps<{
-  alumno?: Alumno;
+  profesor?: Profesor;
 }>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
-  (e: 'save', alumno: Alumno): void;
+  (e: 'save', profesor: Profesor): void;
   (e: 'cancel'): void;
 }>();
 
-const localAlumno = ref<Alumno>({
+const localProfesor = ref<Profesor>({
   check: false,
   id: 0,
   nombre: '',
@@ -67,11 +68,11 @@ const isEdit = ref(false);
 onMounted ( () => {
   model.value = true
   console.log('abrir')
-  if (props.alumno) {
-        localAlumno.value = { ...props.alumno };
+  if (props.profesor) {
+        localProfesor.value = { ...props.profesor };
         isEdit.value = true;
       } else {
-        localAlumno.value = { check: false, id: 0, nombre: '', apellido: '', grado: '' };
+        localProfesor.value = { check: false, id: 0, nombre: '', apellido: '', grado: '' };
         isEdit.value = false;
       }
     }
@@ -80,7 +81,7 @@ onMounted ( () => {
 function onSave() {
   if (formRef.value?.validate()) {
     model.value = false
-    emit('save', localAlumno.value);
+    emit('save', localProfesor.value);
 
   }
 }
